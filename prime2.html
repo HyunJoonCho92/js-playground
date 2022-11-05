@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소수 찾기</title>
+</head>
+<body>
+    <h1>소수 목록들</h1>
+    <div id = "result"></div>
+    <script>
+        //numbers 객체
+        var numbers = {};
+        //1~10000숫자 객체
+        numbers.all = [];
+        //소수만 있는 객체
+        numbers.prime = [];
+
+
+        //소수인지 확인. 소수이면 return true, 소수아니면 return false
+        numbers.isPrime = function(number) {
+            for (var i = 2; i < number; i++) {
+                if (number % i == 0) {
+                    return false;
+                }
+            }      
+            return true;  
+        };
+
+        //1~10000 수를 배열에 추가하기 push로
+        numbers.addAllNumber = function(max_num) {
+            for (var i = 2; i <= max_num; i++) {
+                   this.all.push(i);
+            }
+        };
+
+        //소수 구하면 numbers.prime에 push
+        numbers.calcPrimes = function() {
+            for (var i = 0; i < this.all.length; i++) {
+                var n = this.all[i];
+                if (this.isPrime(n)) {
+                    this.prime.push(n);
+                }
+            }
+        };
+
+        //numbers.prime에 있는 소수들 print
+        numbers.getAllPrimeNumbers = function() {
+            var ret = "";
+            ret += "<h2>전체 소수의 갯수:" + this.prime.length + "</h2>\n";
+            for (var i = 0; i < this.prime.length; i++) {
+                ret += (i+1) + "번째 소수: " + this.prime[i] + "<br>\n";
+            }
+            return ret;
+        };
+
+        numbers.addAllNumber(10000);
+        numbers.calcPrimes();
+        document.getElementById('result').innerHTML = numbers.getAllPrimeNumbers();
+
+    </script>
+</body>
+</html>
